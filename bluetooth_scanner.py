@@ -2,12 +2,7 @@
 # program runs in the background, scanning for bluetooth devices 
 # at a regular interval. 
 
-# uses the following shell utility
-# hcitool inq --flush outputs:
-# Inquiring...
-# 60:FB:42:82:2E:7B clock offset: 0x5129    class: 0x38010c
-# 60:FB:42:82:2E:7B clock offset: 0x5129    class: 0x38010c
-# ...
+# 
 
 import os, time, platform
 from datetime import datetime
@@ -17,10 +12,7 @@ from urllib2 import urlopen, URLError
 # get the name of this scanner
 scanner_id = os.popen('uname -n').readline().strip()
 
-# devices in the area
-devices_here = {}
-
-AWAY_HEURISTIC = 20
+AWAY_HEURISTIC = 10
 
 
 def get_bt_ids():
@@ -35,14 +27,24 @@ def get_bt_ids():
         ids = [dev[0] for dev in devs]
     elif sys == 'Linux':
         # launch the scanner
-        f = os.popen('hcitool inq --flush')
+        f = os.popen('hcitool scan --length=2')
         # get the output from the scanner utility
-        unparsed_data = f.readlines()[1:]
+        unparsed_data = f.readlines()[:]
+        # print unparsed_data
         for u in unparsed_data:
             # get the ID of the bluetooth devices
-            id = u.split()[0]
-            ids.append(id)
-            
+            test = u.split()[:]
+            # print test
+            id = u.split()[1]
+            if id == "jitete's":
+                ids.append(id)
+            elif id == "Linhao's":
+                ids.append(id)
+
+            else:
+
+                pass
+    # print ids  # it will print ["Linhao's", "Linhao's"]
     return ids
 
 def scan():
@@ -52,15 +54,8 @@ def scan():
     # get all of the bluetooth devices nearby
     ids = get_bt_ids()
     for id in ids:
-        # only record if the device is new
-        if not devices_here.has_key(id):
-            # if the device is not here, it must have just entered the area.
-            # this is a significant event. upload it to the server.
-            upload_to_db({'time': time, 'device_id': id, 
-                          'scanner_id': scanner_id, 'event_type': 'ENTER'})
-            
-        # note the devices that are here
-        devices_here[id] = time
+        print id + " is coming"
+
 
 def cleanup():
     """Clean up the list of nearby devices"""
@@ -101,8 +96,10 @@ def upload_to_db(params):
     
 if __name__ == '__main__':
     while True:
-        print 'Scanning...'
+        print "..."
         # continuously scan the world for new devices 
         scan()
         # and clean up the list of devices that are present
-        cleanup()
+        # cleanup()
+
+    
