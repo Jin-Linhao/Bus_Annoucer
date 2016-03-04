@@ -8,11 +8,16 @@ import os, time, platform
 from datetime import datetime
 from urllib import urlencode
 from urllib2 import urlopen, URLError
-
+import pygame.mixer
+from pygame.locals import *
 # get the name of this scanner
 scanner_id = os.popen('uname -n').readline().strip()
 
 AWAY_HEURISTIC = 10
+
+pygame.mixer.init()
+
+
 
 
 def get_bt_ids():
@@ -40,7 +45,10 @@ def get_bt_ids():
                 ids.append(id)
             elif id == "Linhao's":
                 ids.append(id)
-
+                sounda = pygame.mixer.Sound("02.wav")
+                channela = sounda.play()
+                while channela.get_busy():
+                    pygame.time.delay(10000)
             else:
 
                 pass
