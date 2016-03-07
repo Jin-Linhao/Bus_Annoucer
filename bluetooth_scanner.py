@@ -3,6 +3,8 @@
 # at a regular interval. 
 
 __author__ = 'LH'
+__date__ = '07/Mar/2016'
+__contact__ = 'jin_linhao@hotmail.com'
 
 
 import os, time, platform
@@ -50,7 +52,7 @@ def get_bt_ids():
                 sounda = pygame.mixer.Sound("02.wav")
                 channela = sounda.play()
                 while channela.get_busy():
-                    pygame.time.delay(10000)
+                    pygame.time.delay(1000)
             else:
 
                 pass
