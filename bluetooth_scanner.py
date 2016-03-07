@@ -2,7 +2,8 @@
 # program runs in the background, scanning for bluetooth devices 
 # at a regular interval. 
 
-# 
+__author__ = 'LH'
+
 
 import os, time, platform
 from datetime import datetime
@@ -45,6 +46,7 @@ def get_bt_ids():
                 ids.append(id)
             elif id == "Linhao's":
                 ids.append(id)
+                print "Linhao's bus is coming"
                 sounda = pygame.mixer.Sound("02.wav")
                 channela = sounda.play()
                 while channela.get_busy():
