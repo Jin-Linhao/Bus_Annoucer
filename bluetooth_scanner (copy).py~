@@ -1,6 +1,0 @@
-import pygame
-
-pygame.mixer.init()
-print("播放音乐1")
-track = pygame.mixer.music.load("01.mp3")
-pygame.mixer.music.play()
