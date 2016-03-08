@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # program runs in the background, scanning for bluetooth devices 
 # at a regular interval. 
+# This code is meant to be run in Linux, not in OS or Windows
+# For installation pygame in Linux, open a terminal and run sudo apt-get install python-pygame
 
-__author__ = 'LH'
+__author__ = 'JIN Linhao'
 __date__ = '07/Mar/2016'
 __contact__ = 'jin_linhao@hotmail.com'
 
@@ -22,42 +24,39 @@ pygame.mixer.init()
 
 
 
-
 def get_bt_ids():
-    """Get all nearby IDs"""
-    sys = platform.system()
+    #"""Get all nearby IDs"""
     ids = []
-    if sys == 'Darwin':
-        # we're on mac. use lightblue
-        import lightblue
-        # do some stuff
-        devs = lightblue.finddevices(getnames=False, length=5)
-        ids = [dev[0] for dev in devs]
-    elif sys == 'Linux':
-        # launch the scanner
-        f = os.popen('hcitool scan --length=2')
-        # get the output from the scanner utility
-        unparsed_data = f.readlines()[:]
-        # print unparsed_data
-        for u in unparsed_data:
-            # get the ID of the bluetooth devices
-            test = u.split()[:]
-            # print test
-            id = u.split()[1]
-            if id == "jitete's":
-                ids.append(id)
-            elif id == "Linhao's":
-                ids.append(id)
-                print "Linhao's bus is coming"
-                sounda = pygame.mixer.Sound("02.wav")
-                channela = sounda.play()
-                while channela.get_busy():
-                    pygame.time.delay(1000)
-            else:
 
-                pass
+    # launch the scanner
+    f = os.popen('hcitool scan --length=2')
+    # get the output from the scanner utility
+    unparsed_data = f.readlines()[:]
+
+    for u in unparsed_data:
+        # get the ID of the bluetooth devices
+        test = u.split()[:]
+        # print test
+        id = u.split()[1]
+        if id == "jitete's":
+            ids.append(id)
+        elif id == "Linhao's":
+            ids.append(id)
+            
+            if pygame.mixer.get_init():
+
+                audio_record = pygame.mixer.Sound("02.wav")
+                audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+
+            else:
+                print "pygame mixer is not initialized"
+        else:
+
+            pass
     # print ids  # it will print ["Linhao's", "Linhao's"]
     return ids
+
+
 
 def scan():
     """Scan the area for bluetooth devices. If a new device is seen, notify the database."""
@@ -66,7 +65,7 @@ def scan():
     # get all of the bluetooth devices nearby
     ids = get_bt_ids()
     for id in ids:
-        print id + " is coming"
+        print id + " is coming\n"
 
 
 def cleanup():
