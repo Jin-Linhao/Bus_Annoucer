@@ -26,7 +26,7 @@ dic = {"Linhao's":["02.wav", "Bus179"],
 
 
 
-def get_bt_ids():
+def scan_id():
     """Get all nearby IDs"""
     ids = []
 
@@ -53,16 +53,16 @@ def get_bt_ids():
 
 
 
-def scan():
+def show_id():
     """Scan the area for bluetooth devices. If a new device is seen, notify the database."""
     # note the current time
     time = datetime.now()
     # get all of the bluetooth devices nearby
-    ids = get_bt_ids()
+    ids = scan_id()
     for id in ids:
         if pygame.mixer.get_init():
-            audio_record = pygame.mixer.Sound("audio/"+dic[id][0])
-            audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+            audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/"+dic[id][0])
+            audio_player = audio_record.play(maxtime=1000) #play the sound for two seconds
             print dic[id][1]
         
 
@@ -73,8 +73,8 @@ if __name__ == '__main__':
     pygame.mixer.init()
 
     while True:
-        print "..."
+        # print "..."
         # continuously scan the world for new devices 
-        scan()
+        show_id()
 
     
