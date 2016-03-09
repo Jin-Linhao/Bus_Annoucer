@@ -20,7 +20,8 @@ from pygame.locals import *
 scanner_id = os.popen('uname -n').readline().strip()
 
 
-
+dic = {"Linhao's":["02.wav", "Bus179"], 
+       "jitete's":["03.wav", "Bus199"]}
 
 
 
@@ -47,7 +48,7 @@ def get_bt_ids():
         else:
             pass
 
-    # print ids  # it will print ["Linhao's", "Linhao's"]
+
     return ids
 
 
@@ -60,18 +61,9 @@ def scan():
     ids = get_bt_ids()
     for id in ids:
         if pygame.mixer.get_init():
-            if id == "Linhao's":
-
-                audio_record = pygame.mixer.Sound("02.wav")
-                audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
-                print "Linhao is coming"
-
-            elif id == "jitete's":
-                audio_record = pygame.mixer.Sound("03.wav") 
-                audio_player = audio_record.play(maxtime=2000)
-                print "jitete is coming" 
-            else:
-                print "pygame mixer is not initialized"
+            audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/"+dic[id][0])
+            audio_player = audio_record.play(maxtime=1000) #play the sound for two seconds
+            print dic[id][1]
         
 
 
@@ -81,7 +73,7 @@ if __name__ == '__main__':
     pygame.mixer.init()
 
     while True:
-        print "..."
+        # print "..."
         # continuously scan the world for new devices 
         scan()
 
