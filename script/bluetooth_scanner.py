@@ -20,8 +20,8 @@ from pygame.locals import *
 scanner_id = os.popen('uname -n').readline().strip()
 
 
-dic = {"Linhao's":["02.wav", "Bus179"], 
-       "jitete's":["03.wav", "Bus199"]}
+id_dict = {"Linhao's":["02.wav", "Bus179"], 
+           "jitete's":["03.wav", "Bus199"]}
 
 
 
@@ -61,9 +61,9 @@ def show_id():
     ids = scan_id()
     for id in ids:
         if pygame.mixer.get_init():
-            audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/"+dic[id][0])
+            audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
             audio_player = audio_record.play(maxtime=1000) #play the sound for two seconds
-            print dic[id][1]
+            print id_dict[id][1]
         
 
 
