@@ -11,7 +11,7 @@ __contact__ = 'jin_linhao@hotmail.com'
 
 
 import os, time, platform
-from datetime import datetime
+import time
 from urllib import urlencode
 from urllib2 import urlopen, URLError
 import pygame.mixer
@@ -21,7 +21,9 @@ scanner_id = os.popen('uname -n').readline().strip()
 
 
 id_dict = {"Linhao's":["02.wav", "Bus179"], 
-           "jitete's":["03.wav", "Bus199"]}
+           "Edina":["02.wav", "Bus199"],
+           "Galaxy":["02.wav", "Bus179A"],
+           "Guoyong's":["02.wav", "Bus123"]}
 
 
 
@@ -37,16 +39,28 @@ def scan_id():
 
     for u in unparsed_data:
         # get the ID of the bluetooth devices
-        test = u.split()[:]
+        # test = u.split()[1]
         # print test
-        id = u.split()[1]
-        if id == "jitete's":
-            ids.append(id)
-        elif id == "Linhao's":
-            ids.append(id)
-
+        for id in id_dict.keys():
+        	# print id_dict.keys()
+        	if id  == u.split()[1]:
+        		ids.append(id)
         else:
-            pass
+        	pass
+
+        # print test
+        # id = u.split()[1]
+        # if id == "Edina":
+        #     ids.append(id)
+        # elif id == "Linhao's":
+        #     ids.append(id)
+        # elif id == "Galaxy":
+        # 	ids.append(id)
+        # elif id == "Guoyong's":
+        # 	ids.append(id)
+
+        # else:
+        #     pass
 
 
     return ids
@@ -56,14 +70,17 @@ def scan_id():
 def show_id():
     """Scan the area for bluetooth devices. If a new device is seen, notify the database."""
     # note the current time
-    time = datetime.now()
+    
     # get all of the bluetooth devices nearby
     ids = scan_id()
     for id in ids:
+    	print id_dict[id][1]
         if pygame.mixer.get_init():
-            audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
-            audio_player = audio_record.play(maxtime=1000) #play the sound for two seconds
-            print id_dict[id][1]
+        	time_end = time.time() + 2
+        	while time.time() < time_end:
+		        audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
+		        audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+		        # print id_dict[id][1]
         
 
 
@@ -73,7 +90,7 @@ if __name__ == '__main__':
     pygame.mixer.init()
 
     while True:
-        # print "..."
+        print "..."
         # continuously scan the world for new devices 
         show_id()
 
