@@ -48,21 +48,6 @@ def scan_id():
         else:
         	pass
 
-        # print test
-        # id = u.split()[1]
-        # if id == "Edina":
-        #     ids.append(id)
-        # elif id == "Linhao's":
-        #     ids.append(id)
-        # elif id == "Galaxy":
-        # 	ids.append(id)
-        # elif id == "Guoyong's":
-        # 	ids.append(id)
-
-        # else:
-        #     pass
-
-
     return ids
 
 
