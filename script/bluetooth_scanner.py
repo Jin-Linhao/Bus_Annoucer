@@ -29,7 +29,7 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 
 
 def scan_id():
-    """Get all nearby IDs"""
+    """Scan nearby bluetooth devices and get all the bluetooth name"""
     ids = []
 
     # launch the scanner
@@ -53,10 +53,8 @@ def scan_id():
 
 
 def show_id():
-    """Scan the area for bluetooth devices. If a new device is seen, notify the database."""
-    # note the current time
-    
-    # get all of the bluetooth devices nearby
+    """print the bluetooth id on screen and broadcast the audio recording"""
+
     ids = scan_id()
     for id in ids:
     	print id_dict[id][1]
