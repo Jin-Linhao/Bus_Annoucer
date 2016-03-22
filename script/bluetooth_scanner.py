@@ -16,6 +16,7 @@ from urllib import urlencode
 from urllib2 import urlopen, URLError
 import pygame.mixer
 from pygame.locals import *
+import cv2
 # get the name of this scanner
 scanner_id = os.popen('uname -n').readline().strip()
 
@@ -51,18 +52,25 @@ def scan_id():
     return ids
 
 
-
+time_end=0
 def show_id():
     """print the bluetooth id on screen and broadcast the audio recording"""
+    global time_end
 
     ids = scan_id()
     for id in ids:
     	print id_dict[id][1]
-        if pygame.mixer.get_init():
-        	time_end = time.time() + 2
-        	while time.time() < time_end:
-		        audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
-		        audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+        if pygame.mixer.get_init() and time.time()>time_end:
+	        audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
+	        audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+	        img = cv2.imread("/home/eee/Desktop/bus179.png")
+	        time_end = time.time() + 2
+	        #cv2.imshow("Bus179", img)
+	        #cv2.waitKey(1000) 
+
+
+
+		        # pass
 		        # print id_dict[id][1]
         
 
