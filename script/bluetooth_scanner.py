@@ -11,7 +11,7 @@ __contact__ = 'jin_linhao@hotmail.com'
 
 
 import os, time, platform
-import time, thread
+import time, threading
 from urllib import urlencode
 from urllib2 import urlopen, URLError
 import pygame.mixer
@@ -36,31 +36,32 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 
 def scan_id():
 	"""Scan nearby bluetooth devices and get all the bluetooth name"""
-	ids = []
+	while True:
+		ids = []
 
-	# launch the scanner
-	f = os.popen('hcitool scan --length=2')
-	# get the output from the scanner utility
-	unparsed_data = f.readlines()[:]
+		# launch the scanner
+		f = os.popen('hcitool scan --length=2')
+		# get the output from the scanner utility
+		unparsed_data = f.readlines()[:]
 
-	for u in unparsed_data:
-		# get the ID of the bluetooth devices
-		# test = u.split()[1]
-		# print test
-		for id in id_dict.keys():
-			# print id_dict.keys()
-			if id  == u.split()[1]:
-				ids.append(id)
-		else:
-			pass
+		for u in unparsed_data:
+			# get the ID of the bluetooth devices
+			# test = u.split()[1]
+			# print test
+			for id in id_dict.keys():
+				# print id_dict.keys()
+				if id  == u.split()[1]:
+					ids.append(id)
+			else:
+				pass
 
-	return ids
+		return ids
 
 
 
 def show_id(thread):
 	"""print the bluetooth id on screen and broadcast the audio recording"""
-	global time_end, v
+	global time_end
 	
 
 
@@ -73,32 +74,50 @@ def show_id(thread):
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
 			time_end = time.time() + 2
-		v.set(id_dict[id][1])
-		root.update_idletasks()
+			print "iahfjllwe;;hfkawhfeoiawhejfpiawhfeiopawjhefaiowhfjepiewajefpiejfipajfeipwajfip"
+		
 
 	# time.sleep(delay)
 
 			
 			
-def interface(thread):
-	text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
-	time.sleep(0.04)
+def interface():
+	global v
 
-	root.mainloop()	
+	text = tk.Label(root, , font=("Helvetica", 20), width = 160, height = 100).pack()
+	v.set(id_dict[id][1])
+	root.update_idletasks()
+
+
+	
+
+
+
+threads = []
+t1 = threading.Thread(target = show_id, args = ("thread_1",))
+threads.append(t1)
+# t2 = threading.Thread(target = interface, args = ("thread_2",))
+# threads.append(t2)
 
 
 if __name__ == '__main__':
 
 	pygame.mixer.init()
+	
+	print "...."*20
+	for t in threads:
+		t.setDaemon(True)
+		t.start()
+	t.join()
+	interface()
+	root.mainloop()	
 
 	# while True:
 		# print "..."
 		# continuously scan the world for new devices
-try:
-   	thread.start_new_thread(show_id, ("thread_1",))
-	thread.start_new_thread(interface,("thread_2",))
-except:
-	ThreadAbortException
+# try:
+# except:
+# 	ThreadAbortException
 		# v = "..."
 		# text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
 		# show_id()
