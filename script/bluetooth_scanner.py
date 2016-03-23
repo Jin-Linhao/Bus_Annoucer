@@ -11,7 +11,7 @@ __contact__ = 'jin_linhao@hotmail.com'
 
 
 import os, time, platform
-import time
+import time, thread
 from urllib import urlencode
 from urllib2 import urlopen, URLError
 import pygame.mixer
@@ -58,48 +58,56 @@ def scan_id():
 
 
 
-def show_id():
+def show_id(thread):
 	"""print the bluetooth id on screen and broadcast the audio recording"""
-	global time_end
+	global time_end, v
 	
 
 
 	ids = scan_id()
 
 	for id in ids:
+
 		print id_dict[id][1]
 		if pygame.mixer.get_init() and time.time()>time_end:
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
 			time_end = time.time() + 2
-			v.set(id_dict[id][1])
+		v.set(id_dict[id][1])
+		root.update_idletasks()
 
-			text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
+	# time.sleep(delay)
+
 			
 			
-	# root.mainloop()	 
-	# time_end = time.time() + 2
-	# root.destroy()
+def interface(thread):
+	text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
+	time.sleep(0.04)
 
-
-
-				# pass
-				# print id_dict[id][1]
-		
-
+	root.mainloop()	
 
 
 if __name__ == '__main__':
 
 	pygame.mixer.init()
 
-	while True:
-		print "..."
+	# while True:
+		# print "..."
 		# continuously scan the world for new devices
+try:
+   	thread.start_new_thread(show_id, ("thread_1",))
+	thread.start_new_thread(interface,("thread_2",))
+except:
+	ThreadAbortException
+		# v = "..."
+		# text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
+		# show_id()
+		# root.mainloop()
+		# print "*"*40
+		# show_id()
 
-		
-		show_id()
-		root.mainloop()	 	
+
+			 	
 		
 
 
