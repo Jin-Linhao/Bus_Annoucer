@@ -1,3 +1,4 @@
+#coding:utf-8
 #!/usr/bin/env python
 # program runs in the background, scanning for bluetooth devices 
 # at a regular interval. 
@@ -33,7 +34,8 @@ shareData.set("...")
 id_dict = {"Linhao's":["02.wav", "Bus179"], 
 		   "Edina":["02.wav", "Bus199"],
 		   "Galaxy":["02.wav", "Bus179A"],
-		   "Guoyong's":["02.wav", "Bus123"]}
+		   "Guoyong's":["02.wav", "Bus123"],
+		   "songcx":["02.wav", "Bus123"]}
 
 
 
@@ -48,13 +50,15 @@ def scan_id():
 		# get the output from the scanner utility
 		unparsed_data = f.readlines()[:]
 
+
 		for u in unparsed_data:
 			# get the ID of the bluetooth devices
-			# test = u.split()[1]
-			# print test
+			test = u.split()[1]
+			print test
 			for id in id_dict.keys():
 				# print id_dict.keys()
 				if id  == u.split()[1]:
+
 					ids.append(id)
 			else:
 				pass
@@ -69,10 +73,11 @@ def scan_id():
 def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
-	
+	print "..."
 
 
 	ids = scan_id()
+	print ids
 
 	for id in ids:
 
@@ -81,7 +86,8 @@ def show_id():
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
 			time_end = time.time() + 2
-			print "iahfjllwe;;hfkawhfeoiawhejfpiawhfeiopawjhefaiowhfjepiewajefpiejfipajfeipwajfip"
+			shareData.set(id_dict[id][1])
+	
 			root.update_idletasks()
 
 	# time.sleep(delay)
@@ -96,6 +102,10 @@ def Algo():
 			show_id()
 		else:
 			return
+
+
+
+
 
 		
 class Application(tk.Frame):
@@ -114,7 +124,7 @@ class Application(tk.Frame):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = "top")
 
-		self.entry = Entry(self, textvariable = shareData)
+		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 36))
 		self.entry.pack(side = "top")
 
 
@@ -129,13 +139,6 @@ class Application(tk.Frame):
 
 
 
-# threads = []
-# t1 = threading.Thread(target = show_id, args = ("thread_1",))
-# threads.append(t1)
-# t2 = threading.Thread(target = interface, args = ("thread_2",))
-# threads.append(t2)
-
-
 if __name__ == '__main__':
 
 	pygame.mixer.init()
@@ -145,18 +148,7 @@ if __name__ == '__main__':
 	root.geometry("1600x1400")
 	root.mainloop()
 
-	# while True:
-		# print "..."
-		# continuously scan the world for new devices
-# try:
-# except:
-# 	ThreadAbortException
-		# v = "..."
-		# text = tk.Label(root, textvariable=v, font=("Helvetica", 20), width = 160, height = 100).pack()
-		# show_id()
-		# root.mainloop()
-		# print "*"*40
-		# show_id()
+
 
 
 			 	
