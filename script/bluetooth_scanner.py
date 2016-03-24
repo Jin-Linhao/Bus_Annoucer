@@ -18,13 +18,17 @@ import pygame.mixer
 from pygame.locals import *
 import cv2
 import Tkinter as tk
+from Tkinter import *
+
 
 
 # get the name of this scanner
 scanner_id = os.popen('uname -n').readline().strip()
 time_end=0
 root = tk.Tk()
-v = tk.StringVar()
+shareData = tk.StringVar()
+shareData.set("...")
+
 
 id_dict = {"Linhao's":["02.wav", "Bus179"], 
 		   "Edina":["02.wav", "Bus199"],
@@ -59,7 +63,10 @@ def scan_id():
 
 
 
-def show_id(thread):
+
+
+
+def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
 	
@@ -75,27 +82,56 @@ def show_id(thread):
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
 			time_end = time.time() + 2
 			print "iahfjllwe;;hfkawhfeoiawhejfpiawhfeiopawjhefaiowhfjepiewajefpiejfipajfeipwajfip"
-		
+			root.update_idletasks()
 
 	# time.sleep(delay)
 
-			
-			
-def interface():
-	global v
 
-	text = tk.Label(root, , font=("Helvetica", 20), width = 160, height = 100).pack()
-	v.set(id_dict[id][1])
-	root.update_idletasks()
+
+
+def Algo():
+	while True:
+
+		if (programRunning):
+			show_id()
+		else:
+			return
+
+		
+class Application(tk.Frame):
+
+	def __init__(self, master = None):
+		tk.Frame.__init__(self, master)
+		self.pack()
+		self.createWidgets()
+		#while initializing the windows, run Algo
+		algo_thread = threading.Thread(target = Algo)
+		algo_thread.daemon = True
+		algo_thread.start()
+
+
+	def createWidgets(self):
+		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
+		self.QUIT.pack(side = "top")
+
+		self.entry = Entry(self, textvariable = shareData)
+		self.entry.pack(side = "top")
+
+
+	def exitProgram(self):
+		global programRunning
+		programRunning = False
+		root.destroy()
+
 
 
 	
 
 
 
-threads = []
-t1 = threading.Thread(target = show_id, args = ("thread_1",))
-threads.append(t1)
+# threads = []
+# t1 = threading.Thread(target = show_id, args = ("thread_1",))
+# threads.append(t1)
 # t2 = threading.Thread(target = interface, args = ("thread_2",))
 # threads.append(t2)
 
@@ -104,13 +140,10 @@ if __name__ == '__main__':
 
 	pygame.mixer.init()
 	
-	print "...."*20
-	for t in threads:
-		t.setDaemon(True)
-		t.start()
-	t.join()
-	interface()
-	root.mainloop()	
+	programRunning = True
+	app = Application(master = root)
+	root.geometry("1600x1400")
+	root.mainloop()
 
 	# while True:
 		# print "..."
