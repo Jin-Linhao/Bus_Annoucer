@@ -112,7 +112,7 @@ class Application(tk.Frame):
 
 	def __init__(self, master = None):
 		tk.Frame.__init__(self, master)
-		self.pack()
+		self.grid()
 		self.createWidgets()
 		#while initializing the windows, run Algo
 		algo_thread = threading.Thread(target = Algo)
@@ -122,10 +122,9 @@ class Application(tk.Frame):
 
 	def createWidgets(self):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
-		self.QUIT.pack(side = "top")
-
-		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 36))
-		self.entry.pack(side = "top")
+		self.QUIT.pack(side = BOTTOM)
+		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 70), justify = CENTER)
+		self.entry.pack(padx = 50, pady = 600)
 
 
 	def exitProgram(self):
@@ -139,13 +138,14 @@ class Application(tk.Frame):
 
 
 
+
 if __name__ == '__main__':
 
 	pygame.mixer.init()
 	
 	programRunning = True
 	app = Application(master = root)
-	root.geometry("1600x1400")
+	root.geometry("2880x1800")
 	root.mainloop()
 
 
