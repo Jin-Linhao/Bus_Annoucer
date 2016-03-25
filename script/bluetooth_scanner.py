@@ -90,8 +90,6 @@ def show_id():
 	
 			root.update_idletasks()
 
-	# time.sleep(delay)
-
 
 
 
