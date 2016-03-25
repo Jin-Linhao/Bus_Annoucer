@@ -93,7 +93,7 @@ def show_id():
 
 
 
-def Algo():
+def test():
 	while True:
 
 		if (programRunning):
@@ -112,10 +112,10 @@ class Application(tk.Frame):
 		tk.Frame.__init__(self, master)
 		self.grid()
 		self.createWidgets()
-		#while initializing the windows, run Algo
-		algo_thread = threading.Thread(target = Algo)
-		algo_thread.daemon = True
-		algo_thread.start()
+		#while initializing the windows, run Test
+		test_thread = threading.Thread(target = test)
+		test_thread.daemon = True
+		test_thread.start()
 
 
 	def createWidgets(self):
