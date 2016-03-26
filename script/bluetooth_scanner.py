@@ -35,7 +35,8 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 		   "Edina":["02.wav", "Bus199"],
 		   "Galaxy":["02.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
-		   "songcx":["02.wav", "Bus123"]}
+		   "songcx":["02.wav", "Bus123"],
+		   "scanning":["02.wav", "...."]}
 
 
 
@@ -54,7 +55,7 @@ def scan_id():
 		for u in unparsed_data:
 			# get the ID of the bluetooth devices
 			test = u.split()[1]
-			print test
+			# print test
 			for id in id_dict.keys():
 				# print id_dict.keys()
 				if id  == u.split()[1]:
@@ -62,6 +63,8 @@ def scan_id():
 					ids.append(id)
 			else:
 				pass
+		ids.append("scanning")
+		print ids
 
 		return ids
 
@@ -73,13 +76,13 @@ def scan_id():
 def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
-	print "..."
+	# print "..."
 
 
 	ids = scan_id()
-	print ids
+	# print ids
 
-	for id in ids:
+	for id in ids :
 
 		print id_dict[id][1]
 		if pygame.mixer.get_init() and time.time()>time_end:
@@ -89,6 +92,11 @@ def show_id():
 			shareData.set(id_dict[id][1])
 	
 			root.update_idletasks()
+		else:
+			continue
+			
+
+
 
 
 
