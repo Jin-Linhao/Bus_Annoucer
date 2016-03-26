@@ -88,8 +88,9 @@ def show_id():
 		if pygame.mixer.get_init() and time.time()>time_end:
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
-			time_end = time.time() + 2
+			time_end = time.time() + 3
 			shareData.set(id_dict[id][1])
+			print time.localtime(time.time()), time.localtime(time_end)
 	
 			root.update_idletasks()
 		else:
