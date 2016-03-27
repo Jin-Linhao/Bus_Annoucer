@@ -1,5 +1,5 @@
-#coding:utf-8
 #!/usr/bin/env python
+#coding:utf-8
 # program runs in the background, scanning for bluetooth devices 
 # at a regular interval. 
 # This code is meant to be run in Linux, not in OS or Windows
@@ -36,7 +36,8 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 		   "Galaxy":["02.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
 		   "songcx":["02.wav", "Bus123"],
-		   "scanning":["02.wav", "...."]}
+		   "scanning":["02.wav", "...."],
+		   "test":["02.wav", "test"]}
 
 
 
@@ -64,6 +65,7 @@ def scan_id():
 			else:
 				pass
 		ids.append("scanning")
+		ids.append("test")
 		print ids
 
 		return ids
@@ -90,11 +92,13 @@ def show_id():
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
 			time_end = time.time() + 3
 			shareData.set(id_dict[id][1])
-			print time.localtime(time.time()), time.localtime(time_end)
+			# print time.localtime(time.time()), time.localtime(time_end)
 	
 			root.update_idletasks()
-		else:
+			time.sleep(3)
 			continue
+		# else:
+		# 	continue
 			
 
 
