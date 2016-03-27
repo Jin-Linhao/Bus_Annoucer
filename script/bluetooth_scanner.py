@@ -31,13 +31,13 @@ shareData = tk.StringVar()
 shareData.set("...")
 
 
+
 id_dict = {"Linhao's":["02.wav", "Bus179"], 
 		   "Edina":["02.wav", "Bus199"],
 		   "Galaxy":["02.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
 		   "songcx":["02.wav", "Bus123"],
-		   "scanning":["02.wav", "...."]}
-
+		   "scanning":["", "...."]}
 
 
 
@@ -70,37 +70,22 @@ def scan_id():
 
 
 
-
-
-
 def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
-	# print "..."
-
-
 	ids = scan_id()
-	# print ids
 
 	for id in ids :
 
-		print id_dict[id][1]
-		if pygame.mixer.get_init() and time.time()>time_end:
+		# print id_dict[id][1]
+		if pygame.mixer.get_init() :
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
-			time_end = time.time() + 3
 			shareData.set(id_dict[id][1])
-			# print time.localtime(time.time()), time.localtime(time_end)
 	
 			root.update_idletasks()
 			time.sleep(3)
-			continue
-		# else:
-		# 	continue
-			
-
-
-
+			continue			
 
 
 
@@ -111,7 +96,6 @@ def test():
 			show_id()
 		else:
 			return
-
 
 
 
@@ -129,6 +113,7 @@ class Application(tk.Frame):
 		test_thread.start()
 
 
+
 	def createWidgets(self):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = BOTTOM)
@@ -136,14 +121,12 @@ class Application(tk.Frame):
 		self.entry.pack(padx = 0, pady = 600)
 
 
+
 	def exitProgram(self):
 		global programRunning
 		programRunning = False
 		root.destroy()
 
-
-
-	
 
 
 
