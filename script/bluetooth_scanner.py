@@ -36,8 +36,7 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 		   "Galaxy":["02.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
 		   "songcx":["02.wav", "Bus123"],
-		   "scanning":["02.wav", "...."],
-		   "test":["02.wav", "test"]}
+		   "scanning":["02.wav", "...."]}
 
 
 
@@ -65,7 +64,6 @@ def scan_id():
 			else:
 				pass
 		ids.append("scanning")
-		ids.append("test")
 		print ids
 
 		return ids
@@ -134,8 +132,8 @@ class Application(tk.Frame):
 	def createWidgets(self):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = BOTTOM)
-		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 70), justify = CENTER)
-		self.entry.pack(padx = 50, pady = 600)
+		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 68), justify = CENTER)
+		self.entry.pack(padx = 0, pady = 600)
 
 
 	def exitProgram(self):
