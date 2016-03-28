@@ -36,8 +36,8 @@ id_dict = {"Linhao's":["02.wav", "Bus179"],
 		   "Edina":["02.wav", "Bus199"],
 		   "Galaxy":["02.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
-		   "songcx":["02.wav", "Bus123"],
-		   "scanning":["", "...."]}
+		   "songcx":["02.wav", "Bus123"]}
+		   # "scanning":["", "...."]}
 
 
 
@@ -64,7 +64,7 @@ def scan_id():
 			else:
 				pass
 		ids.append("scanning")
-		print ids
+		# print ids
 
 		return ids
 
@@ -78,14 +78,20 @@ def show_id():
 	for id in ids :
 
 		# print id_dict[id][1]
-		if pygame.mixer.get_init() :
+		if pygame.mixer.get_init() and id_dict.has_key(id):
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
-			shareData.set(id_dict[id][1])
-	
+			
+			shareData.set(id_dict[id][1])	
 			root.update_idletasks()
 			time.sleep(3)
-			continue			
+			continue
+		else:
+			shareData.set("....")
+			root.update_idletasks()
+
+			break
+
 
 
 
@@ -117,7 +123,7 @@ class Application(tk.Frame):
 	def createWidgets(self):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = BOTTOM)
-		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 68), justify = CENTER)
+		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
 		self.entry.pack(padx = 0, pady = 600)
 
 
