@@ -3,20 +3,14 @@
 
 	Jin Linhao <Nanyang Technological University>
 
-## Pygame installation
-    To install pygame in Linux, open a terminal and run 
+## Pygame and Tkinter installation
+    To install pygame and Tkinter in Linux, open a terminal and run 
 
-    sudo apt-get install python-pygame
+    sudo apt-get install python-pygame python-tk
 
-    pygame is used for audio-playing
+    pygame is used for audio-playing, tk is used for GUI
 
-## Tkinter installation
-    To install Tkinter in Linux, open a terminal and run
 
-    sudo apt-get install python-tk
-
-    tk is used for graphical user interface
-		
 ## For running the script
     open a terminal and run
 
