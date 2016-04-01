@@ -29,6 +29,8 @@ time_end=0
 root = tk.Tk()
 shareData = tk.StringVar()
 shareData.set("...")
+shareList = tk.StringVar()
+shareList.set("")
 
 
 
@@ -45,7 +47,7 @@ def scan_id():
 	"""Scan nearby bluetooth devices and get all the bluetooth name"""
 	while True:
 		ids = []
-
+		ids_list = []
 		# launch the scanner
 		f = os.popen('hcitool scan --length=2')
 		# get the output from the scanner utility
@@ -61,10 +63,12 @@ def scan_id():
 				if id  == u.split()[1]:
 
 					ids.append(id)
+					ids_list.append(id+"/n")
+					
 			else:
-				pass
+				pass	
 		ids.append("scanning")
-		print ids
+		print ids, ids_list
 
 		return ids
 
@@ -91,6 +95,13 @@ def show_id():
 			root.update_idletasks()
 
 			break
+
+def show_whole_list():
+	ids_list = scan_id()
+
+	for idlist in ids_list:
+		shareList.set(idlist)
+		root.update_idletasks()
 
 
 
@@ -124,7 +135,9 @@ class Application(tk.Frame):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = BOTTOM)
 		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
-		self.entry.pack(padx = 0, pady = 600)
+		self.entry.pack(padx = 0, pady = 150)
+		self.entry = Entry(self, textvariable = shareList, font = ("Helvetica", 20), justify = LEFT)
+		self.entry.pack(padx = 0, pady = 250)
 
 
 
@@ -140,6 +153,7 @@ class Application(tk.Frame):
 if __name__ == '__main__':
 
 	pygame.mixer.init()
+	
 	
 	programRunning = True
 	app = Application(master = root)
