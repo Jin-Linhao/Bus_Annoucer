@@ -64,7 +64,7 @@ def scan_id():
 			else:
 				pass
 		ids.append("scanning")
-		# print ids
+		print ids
 
 		return ids
 
@@ -87,7 +87,7 @@ def show_id():
 			time.sleep(3)
 			continue
 		else:
-			shareData.set("....")
+			shareData.set("...")
 			root.update_idletasks()
 
 			break
