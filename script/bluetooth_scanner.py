@@ -63,12 +63,9 @@ def scan_id():
 				if id  == u.split()[1]:
 
 					ids.append(id)
-					ids_list.append(id+"/n")
 					
 			else:
 				pass	
-		ids.append("scanning")
-		print ids, ids_list
 
 		return ids
 
@@ -78,9 +75,12 @@ def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
 	ids = scan_id()
+	ids.append("scanning")
+	show_whole_list()
 
 	for id in ids :
 
+		
 		# print id_dict[id][1]
 		if pygame.mixer.get_init() and id_dict.has_key(id):
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
@@ -95,13 +95,20 @@ def show_id():
 			root.update_idletasks()
 
 			break
+	
+
+
+
 
 def show_whole_list():
 	ids_list = scan_id()
 
 	for idlist in ids_list:
-		shareList.set(idlist)
+		print idlist
+		# idlist.append("\n")
+		shareList.set(id_dict[idlist][1])
 		root.update_idletasks()
+		continue
 
 
 
@@ -136,7 +143,7 @@ class Application(tk.Frame):
 		self.QUIT.pack(side = BOTTOM)
 		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
 		self.entry.pack(padx = 0, pady = 150)
-		self.entry = Entry(self, textvariable = shareList, font = ("Helvetica", 20), justify = LEFT)
+		self.entry = Entry(self, textvariable = shareList, font = ("Helvetica", 78), justify = LEFT)
 		self.entry.pack(padx = 0, pady = 250)
 
 
