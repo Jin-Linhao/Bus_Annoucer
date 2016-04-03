@@ -117,9 +117,11 @@ def show_id():
 
 
 def test():
+	global app
 	while True:
 
 		if (programRunning):
+			
 			show_id()
 		else:
 			return
@@ -147,9 +149,10 @@ class Application(tk.Frame):
 		self.entry1 = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
 		self.entry1.pack(padx = 0, pady = 150)
 	
-		self.text = Text(self, font = ("Helvetica", 20))
-		self.text.insert(END, 'BUS179\nBUS199')
-		self.text.pack(padx = 0, pady = 200)
+		self.text = Text(self, width = 26, height = 3, font = ("Helvetica", 60)) 
+		self.text.insert(END, 'BUS179\n')
+		self.text.insert(END, 'BUS199\n')
+		self.text.pack(padx = 0, pady = 150)
 
 
 
