@@ -76,7 +76,7 @@ def show_id():
 	global time_end
 	ids = scan_id()
 	ids.append("scanning")
-	show_whole_list()
+	# show_whole_list()
 
 	for id in ids :
 
@@ -100,15 +100,18 @@ def show_id():
 
 
 
-def show_whole_list():
-	ids_list = scan_id()
+# def show_whole_list():
+# 	ids_list = scan_id()
+# 	new_id_list = []
 
-	for idlist in ids_list:
-		print idlist
-		# idlist.append("\n")
-		shareList.set(id_dict[idlist][1])
-		root.update_idletasks()
-		continue
+# 	for idlist in ids_list:
+# 		# print idlist
+# 		idlist = idlist + "\n"
+# 		continue
+# 		# idlist.append("\n")
+# 	shareList.set(id_dict[idlist][1])
+# 	root.update_idletasks()
+
 
 
 
@@ -141,10 +144,12 @@ class Application(tk.Frame):
 	def createWidgets(self):
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
 		self.QUIT.pack(side = BOTTOM)
-		self.entry = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
-		self.entry.pack(padx = 0, pady = 150)
-		self.entry = Entry(self, textvariable = shareList, font = ("Helvetica", 78), justify = LEFT)
-		self.entry.pack(padx = 0, pady = 250)
+		self.entry1 = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
+		self.entry1.pack(padx = 0, pady = 150)
+	
+		self.text = Text(self, font = ("Helvetica", 20))
+		self.text.insert(END, 'BUS179\nBUS199')
+		self.text.pack(padx = 0, pady = 200)
 
 
 
