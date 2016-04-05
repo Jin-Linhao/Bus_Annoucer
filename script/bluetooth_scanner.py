@@ -34,9 +34,9 @@ shareList.set("")
 
 
 
-id_dict = {"Linhao's":["02.wav", "Bus179"], 
-		   "Edina":["02.wav", "Bus199"],
-		   "Galaxy":["02.wav", "Bus179A"],
+id_dict = {"Linhao's":["179.wav", "Bus179"], 
+		   "Edina":["199.wav", "Bus199"],
+		   "Galaxy":["179A.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
 		   "songcx":["02.wav", "Bus123"]}
 		   # "scanning":["", "...."]}
@@ -83,12 +83,12 @@ def show_id():
 		
 		# print id_dict[id][1]
 		if pygame.mixer.get_init() and id_dict.has_key(id):
-			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/" + id_dict[id][0])
-			audio_player = audio_record.play(maxtime=2000) #play the sound for two seconds
+			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/wav/" + id_dict[id][0])
+			audio_player = audio_record.play(maxtime=3000) #play the sound for two seconds
 			
 			shareData.set(id_dict[id][1])	
 			root.update_idletasks()
-			time.sleep(3)
+			time.sleep(4)
 			continue
 		else:
 			shareData.set("...")
