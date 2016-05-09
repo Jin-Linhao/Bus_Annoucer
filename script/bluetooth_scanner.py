@@ -33,6 +33,8 @@ shareList = tk.StringVar()
 shareList.set("")
 shareids = tk.StringVar()
 shareids.set("")
+sharetime = tk.StringVar()
+sharetime.set("")
 
 
 id_dict = {"Linhao's":["179.wav", "Bus179"], 
@@ -41,6 +43,10 @@ id_dict = {"Linhao's":["179.wav", "Bus179"],
 		   "Guoyong's":["02.wav", "Bus123"],
 		   "songcx":["02.wav", "Bus123"]}
 		   # "scanning":["", "...."]}
+
+def enter_time():
+	bus_enter_time = time.strftime("%H:%M")
+	return  bus_enter_time
 
 
 
@@ -57,14 +63,12 @@ def scan_id():
 
 		for u in unparsed_data:
 			# get the ID of the bluetooth devices
-			test = u.split()[1]
-			# print test
 			for id in id_dict.keys():
+
 				# print id_dict.keys()
 				if id  == u.split()[1]:
 
 					ids.append(id)
-					
 			else:
 				pass	
 
@@ -82,12 +86,13 @@ def show_bus_list():
 		
 		bus_dict = id_dict[bus_ids][1]
 		bus_name_list += bus_dict + " "
-		print bus_name_list
-
-	bus_name_list = bus_name_list + "arrives at"
-	shareids.set(bus_name_list)
-	root.update_idletasks()
-
+		# print bus_name_list
+	if bus_name_list == "":
+		pass
+	else:
+		bus_name_list = bus_name_list
+		shareids.set(bus_name_list)
+		root.update_idletasks()
 
 
 
@@ -107,13 +112,17 @@ def show_id():
 			audio_record = pygame.mixer.Sound("/home/eee/Documents/Bus_Annoucer/audio/wav/" + id_dict[id][0])
 			audio_player = audio_record.play(maxtime=3000) #play the sound for two seconds
 			
-			shareData.set(id_dict[id][1])	
+			shareData.set(id_dict[id][1])
+			bus_enter_time = enter_time()
+			sharetime.set("arrived at " + bus_enter_time)
+
 			root.update_idletasks()
 			time.sleep(4)
 			continue
 		else:
 			shareData.set("...")
 			root.update_idletasks()
+
 
 			break
 	
@@ -142,7 +151,7 @@ def test():
 	while True:
 
 		if (programRunning):
-			
+			enter_time()
 			show_bus_list()
 			show_id()
 		else:
@@ -171,11 +180,13 @@ class Application(tk.Frame):
 
 		self.entry2 = Entry(self, textvariable = shareids, font = ("Helvetica", 78))
 		self.entry2.pack(padx = 0, pady = 10)
+		self.entry3 = Entry(self, textvariable = sharetime, font = ("Helvetica", 78))
+		self.entry3.pack(padx = 0, pady = 0)
 
 		self.text = Text(self, width = 78, height = 2, font = ("Helvetica", 20)) 
 		self.text.insert(END, 'Buses available :\n')
 		self.text.insert(END, 'Bus179 Bus199 Bus179A Bus123')
-		self.text.pack(padx = 0, pady = 200)
+		self.text.pack(padx = 0, pady = 60)
 
 
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
