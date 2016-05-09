@@ -31,7 +31,8 @@ shareData = tk.StringVar()
 shareData.set("...")
 shareList = tk.StringVar()
 shareList.set("")
-
+shareids = tk.StringVar()
+shareids.set("")
 
 
 id_dict = {"Linhao's":["179.wav", "Bus179"], 
@@ -71,9 +72,29 @@ def scan_id():
 
 
 
+
+def show_bus_list():
+	bus_ids_list = scan_id()
+	bus_name_list = ""
+
+
+	for bus_ids in bus_ids_list:
+		
+		bus_dict = id_dict[bus_ids][1]
+		bus_name_list += bus_dict + " "
+		print bus_name_list
+
+	bus_name_list = bus_name_list + "arrives at"
+	shareids.set(bus_name_list)
+	root.update_idletasks()
+
+
+
+
 def show_id():
 	"""print the bluetooth id on screen and broadcast the audio recording"""
 	global time_end
+	
 	ids = scan_id()
 	ids.append("scanning")
 	# show_whole_list()
@@ -122,6 +143,7 @@ def test():
 
 		if (programRunning):
 			
+			show_bus_list()
 			show_id()
 		else:
 			return
@@ -144,15 +166,20 @@ class Application(tk.Frame):
 
 
 	def createWidgets(self):
-		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
-		self.QUIT.pack(side = BOTTOM)
 		self.entry1 = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
 		self.entry1.pack(padx = 0, pady = 150)
-	
-		self.text = Text(self, width = 26, height = 3, font = ("Helvetica", 60)) 
-		self.text.insert(END, 'BUS179\n')
-		self.text.insert(END, 'BUS199\n')
-		self.text.pack(padx = 0, pady = 150)
+
+		self.entry2 = Entry(self, textvariable = shareids, font = ("Helvetica", 78))
+		self.entry2.pack(padx = 0, pady = 10)
+
+		self.text = Text(self, width = 78, height = 2, font = ("Helvetica", 20)) 
+		self.text.insert(END, 'Buses available :\n')
+		self.text.insert(END, 'Bus179 Bus199 Bus179A Bus123')
+		self.text.pack(padx = 0, pady = 200)
+
+
+		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
+		self.QUIT.pack(side = BOTTOM)
 
 
 
