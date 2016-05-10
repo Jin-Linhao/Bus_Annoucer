@@ -44,6 +44,9 @@ id_dict = {"Linhao's":["179.wav", "Bus179"],
 		   "songcx":["02.wav", "Bus123"]}
 		   # "scanning":["", "...."]}
 
+
+
+
 def enter_time():
 	bus_enter_time = time.strftime("%H:%M")
 	return  bus_enter_time
@@ -73,7 +76,6 @@ def scan_id():
 				pass	
 
 		return ids
-
 
 
 
@@ -128,8 +130,6 @@ def show_id():
 	
 
 
-
-
 # def show_whole_list():
 # 	ids_list = scan_id()
 # 	new_id_list = []
@@ -144,8 +144,6 @@ def show_id():
 
 
 
-
-
 def test():
 	global app
 	while True:
@@ -156,8 +154,6 @@ def test():
 			show_id()
 		else:
 			return
-
-
 
 
 		
@@ -178,19 +174,19 @@ class Application(tk.Frame):
 		self.entry1 = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
 		self.entry1.pack(padx = 0, pady = 150)
 
-		self.entry2 = Entry(self, textvariable = shareids, font = ("Helvetica", 78))
+		self.entry2 = Entry(self, textvariable = shareids, font = ("Helvetica", 45), width = 35)
 		self.entry2.pack(padx = 0, pady = 10)
-		self.entry3 = Entry(self, textvariable = sharetime, font = ("Helvetica", 78))
+		self.entry3 = Entry(self, textvariable = sharetime, font = ("Helvetica", 45), width = 35)
 		self.entry3.pack(padx = 0, pady = 0)
 
-		self.text = Text(self, width = 78, height = 2, font = ("Helvetica", 20)) 
+		self.text = Text(self, width = 88, height = 2, font = ("Helvetica", 18)) 
 		self.text.insert(END, 'Buses available :\n')
 		self.text.insert(END, 'Bus179 Bus199 Bus179A Bus123')
-		self.text.pack(padx = 0, pady = 60)
+		self.text.pack(padx = 0, pady = 250)
 
 
 		self.QUIT = tk.Button(self, text = "QUIT", fg = "red", command = self.exitProgram)
-		self.QUIT.pack(side = BOTTOM)
+		self.QUIT.pack(padx = 0, pady = 0 )
 
 
 
@@ -198,8 +194,6 @@ class Application(tk.Frame):
 		global programRunning
 		programRunning = False
 		root.destroy()
-
-
 
 
 
