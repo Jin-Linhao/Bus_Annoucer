@@ -39,8 +39,9 @@ sharetime.set("")
 
 id_dict = {"Linhao's":["179.wav", "Bus179"], 
 		   "Edina":["199.wav", "Bus199"],
-		   "Galaxy":["179A.wav", "Bus179A"],
+		   # "Galaxy":["179A.wav", "Bus179A"],
 		   "Guoyong's":["02.wav", "Bus123"],
+		   "Brian":["02.wav", "Bus1111"],
 		   "songcx":["02.wav", "Bus123"]}
 		   # "scanning":["", "...."]}
 
@@ -66,6 +67,7 @@ def scan_id():
 
 		for u in unparsed_data:
 			# get the ID of the bluetooth devices
+			# print u.split()
 			for id in id_dict.keys():
 
 				# print id_dict.keys()
@@ -171,7 +173,7 @@ class Application(tk.Frame):
 
 
 	def createWidgets(self):
-		self.entry1 = Entry(self, textvariable = shareData, font = ("Helvetica", 78), justify = CENTER)
+		self.entry1 = Entry(self, textvariable = shareData, fg = "red", font = ("Helvetica", 78), justify = CENTER)
 		self.entry1.pack(padx = 0, pady = 150)
 
 		self.entry2 = Entry(self, textvariable = shareids, font = ("Helvetica", 45), width = 35)
