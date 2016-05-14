@@ -40,7 +40,7 @@ sharetime.set("")
 id_dict = {"Linhao's":["179.wav", "Bus179"], 
 		   "Edina":["199.wav", "Bus199"],
 		   # "Galaxy":["179A.wav", "Bus179A"],
-		   "Guoyong's":["02.wav", "Bus123"],
+		   "Guoyong's":["179a.wav", "Bus179A"],
 		   "Brian":["02.wav", "Bus1111"],
 		   "songcx":["02.wav", "Bus123"]}
 		   # "scanning":["", "...."]}
@@ -54,8 +54,15 @@ def enter_time():
 
 
 
+def time_now_sec():
+	time_now_second = time.strftime("%H:%M:%S")
+	return time_now_second
+
+	
+
 def scan_id():
 	"""Scan nearby bluetooth devices and get all the bluetooth name"""
+	time_now = time_now_sec()
 	while True:
 		ids = []
 		ids_list = []
@@ -72,7 +79,7 @@ def scan_id():
 
 				# print id_dict.keys()
 				if id  == u.split()[1]:
-
+					print id + " " + time_now
 					ids.append(id)
 			else:
 				pass	
@@ -154,6 +161,7 @@ def test():
 			enter_time()
 			show_bus_list()
 			show_id()
+			continue
 		else:
 			return
 
